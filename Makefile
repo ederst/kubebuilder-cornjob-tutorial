@@ -77,9 +77,10 @@ run: manifests generate fmt vet ## Run a controller from your host.
 # If you wish built the manager image targeting other platforms you can use the --platform flag.
 # (i.e. docker build --platform linux/arm64 ). However, you must enable docker buildKit for it.
 # More info: https://docs.docker.com/develop/develop-images/build_enhancements/
+PLATFORM ?= linux/amd64
 .PHONY: docker-build
 docker-build: test ## Build docker image with the manager.
-	$(CONTAINER_TOOL) build -t ${IMG} .
+	$(CONTAINER_TOOL) build --platform ${PLATFORM} -t ${IMG} .
 
 .PHONY: docker-push
 docker-push: ## Push docker image with the manager.
